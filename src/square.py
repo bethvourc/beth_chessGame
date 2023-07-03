@@ -8,3 +8,7 @@ class Square:
 
     def has_piece(self):
         return self.piece != None
+    
+    @staticmethod
+    def in_range(*args):
+        pass

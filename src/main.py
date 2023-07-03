@@ -1,3 +1,4 @@
+"""Time stamp: 1:38:33"""
 import pygame
 import sys
 
@@ -24,6 +25,9 @@ class Main:
             game.show_bg(screen)
             game.show_pieces(screen)
 
+            if dragger.dragging:
+               dragger.update_blit(screen)
+
 
             for event in pygame.event.get():
                 # click
@@ -37,12 +41,18 @@ class Main:
                 if board.squares[clicked_row][clicked_col].has_piece():
                    piece = board.squares[clicked_row][clicked_col].piece
                    dragger.save_initial(event.pos)
+                   dragger.drag_piece(piece)
                
                elif event.type == pygame.MOUSEMOTION:
-                pass
+                # check if piece is actually being dragged
+                if dragger.dragging:
+                    dragger.update_mouse(event.pos)
+                    game.show_bg(screen)
+                    game.show_pieces(screen)
+                    dragger.update_blit(screen)
                
                elif event.type == pygame.MOUSEBUTTONUP:
-                pass
+                    dragger.undrag_piece()
                
                elif event.type == pygame.QUIT:
                     pygame.quit()
