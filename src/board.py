@@ -25,9 +25,14 @@ class Board:
                 if Square.in_range(move_row):
                     if self.squares[move_row][col].isempty():
                         initial = Square(row, col)
-                        final = (move_row, col)
+                        final = Square(move_row, col)
                         move = Move(initial, final)
                         piece.add_move(move)
+                        # blocked 
+                    else:
+                        break
+                else:
+                    break
 
         def knight_moves():
             possible_moves = [
