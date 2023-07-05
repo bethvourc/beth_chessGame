@@ -21,11 +21,11 @@ class Board:
             # vertical moves
             start = row + piece.dir
             end = row + (piece.dir * (1 + steps))
-            for move_row in range(start, end, piece.dir):
-                if Square.in_range(move_row):
-                    if self.squares[move_row][col].isempty():
+            for possible_move_row in range(start, end, piece.dir):
+                if Square.in_range(possible_move_row):
+                    if self.squares[possible_move_row][col].isempty():
                         initial = Square(row, col)
-                        final = Square(move_row, col)
+                        final = Square(possible_move_row, col)
                         move = Move(initial, final)
                         piece.add_move(move)
                         # blocked 
@@ -33,6 +33,20 @@ class Board:
                         break
                 else:
                     break
+
+            # diagonal moves
+            possible_move_row = row + piece.dir
+            possible_move_cols = [col-1, col+1]
+            for possible_move_col in possible_move_cols:
+                if Square.in_range(possible_move_row, possible_move_col):
+                    if self.squares[possible_move_row][possible_move_col].has_enemy_piece(piece.color):
+                        # create initial and final move squares 
+                        initial = Square(row, col)
+                        final = Square(possible_move_row, possible_move_col)
+                        # create a new move 
+                        move = Move(initial, final)
+                        # append new move 
+                        piece.add_move(move)
 
         def knight_moves():
             possible_moves = [
@@ -50,7 +64,7 @@ class Board:
                 possible_move_row, possible_move_col = possible_move
 
                 if Square.in_range(possible_move_row, possible_move_col):
-                    if self.squares[possible_move_row][possible_move_col].isempty_or_rival(piece.color):
+                    if self.squares[possible_move_row][possible_move_col].isempty_or_enemy(piece.color):
                         # create squares of move 
                         initial = Square(row, col)
                         final = Square(possible_move_row, possible_move_col)
