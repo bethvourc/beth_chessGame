@@ -15,6 +15,20 @@ class Board:
     def calc_moves(self, piece, row, col):
         """calculate all the valid moves of a piece on a specific position"""
 
+        def pawn_moves():
+            steps = 1 if piece.moved else 2
+
+            # vertical moves
+            start = row + piece.dir
+            end = row + (piece.dir * (1 + steps))
+            for move_row in range(start, end, piece.dir):
+                if Square.in_range(move_row):
+                    if self.squares[move_row][col].isempty():
+                        initial = Square(row, col)
+                        final = (move_row, col)
+                        move = Move(initial, final)
+                        piece.add_move(move)
+
         def knight_moves():
             possible_moves = [
                 (row-2, col+1),
@@ -41,23 +55,17 @@ class Board:
                         piece.add_move(move)
 
 
-        if isinstance(piece, Pawn):
-            pass 
+        if isinstance(piece, Pawn): pawn_moves() 
 
-        elif isinstance(piece, Knight):
-            knight_moves() 
+        elif isinstance(piece, Knight): knight_moves() 
 
-        elif isinstance(piece, Bishop):
-            pass
+        elif isinstance(piece, Bishop): pass
 
-        elif isinstance(piece, Rook):
-            pass 
-        
-        elif isinstance(piece, Queen):
-            pass 
+        elif isinstance(piece, Rook): pass
 
-        elif isinstance(piece, King):
-            pass 
+        elif isinstance(piece, Queen): pass
+
+        elif isinstance(piece, King): pass
 
 
     def _create(self):
