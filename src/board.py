@@ -79,12 +79,38 @@ class Board:
                 possible_move_row = row + row_incr
                 possible_move_col = col + col_incr
 
-                # while True
-                if Square.in_range(possible_move_row, possible_move_col):
-                    if self.squares[possible_move_row][possible_move_col].isempty():
-                        pass
+                while True:
+                    if Square.in_range(possible_move_row, possible_move_col):
 
-                    # has enemy piece 
+                        initial = Square(row, col)
+                        final = Square(possible_move_row, possible_move_col)
+                        # create a possible new move 
+                        move = Move(initial, final)
+
+
+                        # empty
+                        if self.squares[possible_move_row][possible_move_col].isempty():
+                            # append new move 
+                            piece.add_move(move)
+
+                        # has enemy piece
+                        if self.squares[possible_move_row][possible_move_col].has_enemy_piece(piece.color):
+                            # append new move 
+                            piece.add_move(move)
+                            break
+
+                        # has team piece 
+                        if self.squares[possible_move_row][possible_move_col].has_team_piece(piece.color):         
+                            break
+
+                    else:
+                        break
+
+                    # incrementing incrs
+                    possible_move_row = possible_move_row + row_incr
+                    possible_move_col = possible_move_col + col_incr
+
+
 
 
         if isinstance(piece, Pawn): 
