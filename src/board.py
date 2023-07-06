@@ -91,7 +91,7 @@ class Board:
                         # empty
                         if self.squares[possible_move_row][possible_move_col].isempty():
                             # append new move 
-                            piece.add_move(move)
+                            piece.add_move(move) # continue 
 
                         # has enemy piece
                         if self.squares[possible_move_row][possible_move_col].has_enemy_piece(piece.color):
@@ -110,7 +110,9 @@ class Board:
                     possible_move_row = possible_move_row + row_incr
                     possible_move_col = possible_move_col + col_incr
 
-
+        """TODO: Don't foget to add code for castling"""
+        def king_moves():
+            pass
 
 
         if isinstance(piece, Pawn): 
@@ -140,7 +142,7 @@ class Board:
                 (-1, 1), # up-right
                 (-1, -1), # up-left
                 (1, 1), #down right
-                (1, -1) # down left
+                (1, -1), # down left
                 (-1, 0), # up
                 (0, 1), # left
                 (1, 0), # down
