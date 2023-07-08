@@ -112,7 +112,7 @@ class Board:
 
         """TODO: Don't foget to add code for castling"""
         def king_moves():
-            adj = [
+            adjs = [
                 (row-1, col+0), # up
                 (row-1, col+1), # up-right
                 (row+0, col+1), # right
@@ -123,6 +123,21 @@ class Board:
                 (row-1, col-1) # up-left
             ]
 
+            # normal moves
+            for possible_move in adjs:
+                possible_move_row, possible_move_col = possible_move
+
+                if Square.in_range(possible_move_row, possible_move_col):
+                    if self.squares[possible_move_row][possible_move_col].isempty_or_enemy(piece.color):
+                        # create squares of move 
+                        initial = Square(row, col)
+                        final = Square(possible_move_row, possible_move_col)
+                        # create new move
+                        move = Move(initial, final)
+                        # append new move
+                        piece.add_move(move)  
+
+            # castling moves (Queen castling and King side castling)
 
         if isinstance(piece, Pawn): 
             pawn_moves() 
@@ -159,7 +174,7 @@ class Board:
             ])
 
         elif isinstance(piece, King): 
-            pass
+            king_moves()
 
 
     def _create(self):
