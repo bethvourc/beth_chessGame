@@ -112,7 +112,16 @@ class Board:
 
         """TODO: Don't foget to add code for castling"""
         def king_moves():
-            pass
+            adj = [
+                (row-1, col+0), # up
+                (row-1, col+1), # up-right
+                (row+0, col+1), # right
+                (row+1, col+1), # down-right
+                (row+1, col+0), # down 
+                (row+1, col-1), # down-left
+                (row+0, col-1), # left
+                (row-1, col-1) # up-left
+            ]
 
 
         if isinstance(piece, Pawn): 
