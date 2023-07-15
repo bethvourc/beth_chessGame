@@ -53,7 +53,7 @@ class Board:
     def castling(self, initial, final):
         return abs(initial.col - final.col) == 2
     
-    # create method to detect checkmate 
+    # create method to detect check/checkmate 
     def in_check(self, piece, move):
         pass 
 
