@@ -2,6 +2,7 @@ from const import *
 from square import Square
 from piece import *
 from move import Move
+import copy
 
 class Board:
 
@@ -55,7 +56,10 @@ class Board:
     
     # create method to detect check/checkmate 
     def in_check(self, piece, move):
-        pass 
+        temp_piece = copy.deepcopy(piece)
+        temp_board = copy.deepcopy(self)
+        temp_board.move(temp_piece, move)
+
 
 
 
@@ -89,7 +93,8 @@ class Board:
                     if self.squares[possible_move_row][possible_move_col].has_enemy_piece(piece.color):
                         # create initial and final move squares 
                         initial = Square(row, col)
-                        final = Square(possible_move_row, possible_move_col)
+                        final_piece = self.squares[possible_move_row][possible_move_col].piece
+                        final = Square(possible_move_row, possible_move_col, final_piece)
                         # create a new move 
                         move = Move(initial, final)
                         # append new move 
@@ -114,7 +119,8 @@ class Board:
                     if self.squares[possible_move_row][possible_move_col].isempty_or_enemy(piece.color):
                         # create squares of move 
                         initial = Square(row, col)
-                        final = Square(possible_move_row, possible_move_col)
+                        final_piece = self.squares[possible_move_row][possible_move_col].piece
+                        final = Square(possible_move_row, possible_move_col, final_piece)
                         # create new move
                         move = Move(initial, final)
                         # append new move
@@ -130,7 +136,8 @@ class Board:
                     if Square.in_range(possible_move_row, possible_move_col):
 
                         initial = Square(row, col)
-                        final = Square(possible_move_row, possible_move_col)
+                        final_piece = self.squares[possible_move_row][possible_move_col].piece
+                        final = Square(possible_move_row, possible_move_col, final_piece)
                         # create a possible new move 
                         move = Move(initial, final)
 
@@ -141,13 +148,13 @@ class Board:
                             piece.add_move(move) # continue 
 
                         # has enemy piece
-                        if self.squares[possible_move_row][possible_move_col].has_enemy_piece(piece.color):
+                        elif self.squares[possible_move_row][possible_move_col].has_enemy_piece(piece.color):
                             # append new move 
                             piece.add_move(move)
                             break
 
                         # has team piece 
-                        if self.squares[possible_move_row][possible_move_col].has_team_piece(piece.color):         
+                        elif self.squares[possible_move_row][possible_move_col].has_team_piece(piece.color):         
                             break
 
                     else:
