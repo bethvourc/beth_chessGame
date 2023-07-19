@@ -2,7 +2,9 @@ from const import *
 from square import Square
 from piece import *
 from move import Move
+from sound import Sound
 import copy
+import os 
 
 class Board:
 
@@ -28,10 +30,14 @@ class Board:
         if isinstance(piece, Pawn):
             # en passant capture
             diff = final.col - initial.col
-            if diff != 0 and en_passant_empty():
+            if diff != 0 and en_passant_empty:
                 # console board move update
                 self.squares[initial.row][initial.col + diff].piece = None
                 self.squares[final.row][final.col].piece = piece
+                sound  = Sound(os.path.join(
+                    "assets/sounds/capture.wav"
+                ))
+                sound.play()
 
             # pawn en passant
             if self.en_passant(initial, final):

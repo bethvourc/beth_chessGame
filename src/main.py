@@ -89,6 +89,7 @@ class Main:
 
                         # valid move?
                        if board.valid_move(dragger.piece, move):
+                          # normal caputure
                           captured = board.squares[released_row][released_col].has_piece()
 
                           board.move(dragger.piece, move)
