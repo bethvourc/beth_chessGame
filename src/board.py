@@ -79,6 +79,15 @@ class Board:
     def en_passant(self, initial, final):
         return abs(initial.row - final.row) == 2
     
+    def set_false_en_passant(self):
+        for row in range(ROWS):
+            for col in range(COLS):
+                if isinstance(self.squares[row][col].piece, Pawn):
+                    pawn  = self.squares[row][col].piece
+                    if self.last_move:
+                        if self.last_move.final.piece != pawn:
+                            pawn.en_passant = False
+    
     # create method to detect check/checkmate 
     def in_check(self, piece, move):
         temp_piece = copy.deepcopy(piece)
