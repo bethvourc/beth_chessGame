@@ -40,10 +40,6 @@ class Board:
                     ))
                     sound.play()
 
-            # pawn en passant
-            if self.en_passant(initial, final):
-                piece.en_passant  = True
-
             else:
                 # pawn promotion
                 self.check_promotion(piece, final)
@@ -76,17 +72,19 @@ class Board:
     def castling(self, initial, final):
         return abs(initial.col - final.col) == 2
     
-    def en_passant(self, initial, final):
-        return abs(initial.row - final.row) == 2
-    
-    def set_false_en_passant(self):
+
+    def set_true_en_passant(self, piece):
+
+        if not isinstance(piece, Pawn):
+            return
+        
         for row in range(ROWS):
             for col in range(COLS):
                 if isinstance(self.squares[row][col].piece, Pawn):
-                    pawn  = self.squares[row][col].piece
-                    if self.last_move:
-                        if self.last_move.final.piece != pawn:
-                            pawn.en_passant = False
+                    self.squares[row][col].piece.en_passant = False
+
+        piece.en_passant = True
+
     
     # create method to detect check/checkmate 
     def in_check(self, piece, move):
