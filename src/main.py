@@ -7,6 +7,9 @@ from game import Game
 from square import Square
 from move import Move
 
+class StartMenu():
+    pass
+
 
 class Main:
 
