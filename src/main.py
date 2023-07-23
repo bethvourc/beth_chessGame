@@ -8,6 +8,9 @@ from square import Square
 from move import Move
 
 
+class StartMenu():
+    pass
+
 class Main:
 
     def __init__(self) -> None:
