@@ -1,4 +1,4 @@
-"""Time stamp: 1:38:33"""
+"""TODO:Work on game code AI"""
 import pygame
 import sys
 
