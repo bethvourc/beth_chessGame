@@ -1,5 +1,5 @@
-"""Time stamp: 1:38:33"""
 import pygame
+import pygame.mixer
 import sys
 
 from pygame.locals import *
@@ -13,7 +13,13 @@ class StartMenu():
         self.size = self.width, self.height = (1100, 1500)
         pygame.init()
         pygame.mixer.init()
+
+        # Background music 
+        self.background_music =  pygame.mixer.Sound("assets/sounds/home_music.mp3")
+        self.background_music.set_volume(0.5)
+
         self.clock = pygame.time.Clock()
+
         self.screen = pygame.display.set_mode(self.size)
         pygame.display.set_caption("BETH CHESS")
 
@@ -41,6 +47,8 @@ class StartMenu():
 
     def run(self):
         running = True
+
+        self.background_music.play(-1)
 
         while running:
             self.clock.tick(60)
