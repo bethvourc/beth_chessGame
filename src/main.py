@@ -2,13 +2,85 @@
 import pygame
 import sys
 
+from pygame.locals import *
 from const import *
 from game import Game
 from square import Square
 from move import Move
 
 class StartMenu():
-    pass
+    def __init__(self):
+        self.size = self.width, self.height = (1100, 1500)
+        pygame.init()
+        pygame.mixer.init()
+        self.clock = pygame.time.Clock()
+        self.screen = pygame.display.set_mode(self.size)
+        pygame.display.set_caption("BETH CHESS")
+
+        self.button_font = pygame.font.Font("src/start_menu_assets/marta.regular.otf", 12)
+
+        # Load the tutorial background image
+        self.background_image = pygame.image.load("src/start_menu_assets/chess_menu.png").convert_alpha()
+        self.background_image = pygame.transform.scale(self.background_image, self.size)
+
+        # Create a play button to start game
+        self.play_button = pygame.Rect(610, self.height - 810, 500, 300)
+        self.play_button_image = pygame.image.load("src/start_menu_assets/play_button.png").convert_alpha()
+        self.play_button_image = pygame.transform.scale(self.play_button_image, (400, 200))
+        self.play_button_image_rect = self.play_button_image.get_rect(center=self.play_button.center)
+
+        # hover bool
+        self.play_button_hovered = False
+
+        # Create a play button hover effect on mouse detection
+        self.play_button_hover = pygame.Rect(610, self.height - 810, 500, 300)
+        self.play_button_hover_image = pygame.image.load("src/start_menu_assets/play_button_hover.png").convert_alpha()
+        self.play_button_hover_image = pygame.transform.scale(self.play_button_hover_image, (400, 200))
+        self.play_button_hover_image_rect = self.play_button_hover_image.get_rect(center=self.play_button_hover.center)
+
+
+    def run(self):
+        running = True
+
+        while running:
+            self.clock.tick(60)
+
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    running = False
+
+                if event.type == MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        mouse_pos = event.pos
+
+                        if self.play_button.collidepoint(mouse_pos):
+                            running = False
+                            pygame.quit()
+                            main_menu = Main()
+                            main_menu.mainloop()
+
+                elif event.type == MOUSEMOTION:
+                    mouse_pos = event.pos
+
+                    if self.play_button.collidepoint(mouse_pos):
+                        self.play_button_hovered = True
+                    else:
+                        self.play_button_hovered = False
+
+
+
+            # Blit the background image onto the screen
+            self.screen.blit(self.background_image, (0, 0))
+
+            # Handles the hover state
+            if self.play_button_hovered:
+                self.screen.blit(self.play_button_hover_image, self.play_button_image_rect)
+            else:
+                self.screen.blit(self.play_button_image, self.play_button_image_rect)
+
+
+            pygame.display.update()    
 
 
 class Main:
@@ -129,5 +201,5 @@ class Main:
 
             pygame.display.update()
 
-main = Main()
-main.mainloop()
+start = StartMenu()
+start.run()
