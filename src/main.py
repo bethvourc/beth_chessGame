@@ -7,6 +7,8 @@ from const import *
 from game import Game
 from square import Square
 from move import Move
+from sound import Sound
+import os 
 
 class StartMenu():
     def __init__(self):
@@ -63,6 +65,8 @@ class StartMenu():
                         mouse_pos = event.pos
 
                         if self.play_button.collidepoint(mouse_pos):
+                            sound = Sound(os.path.join("assets/sounds/capture.wav"))
+                            sound.play()
                             running = False
                             pygame.quit()
                             main_menu = Main()
