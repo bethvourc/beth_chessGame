@@ -23,7 +23,7 @@ class StartMenu():
         self.clock = pygame.time.Clock()
 
         self.screen = pygame.display.set_mode(self.size)
-        pygame.display.set_caption("BETH CHESS")
+        pygame.display.set_caption("BETH-CHESS")
 
         self.button_font = pygame.font.Font("src/start_menu_assets/marta.regular.otf", 12)
 
