@@ -18,7 +18,7 @@ class StartMenu():
 
         # Background music 
         self.background_music =  pygame.mixer.Sound("assets/sounds/home_music.mp3")
-        self.background_music.set_volume(0.5)
+        self.background_music.set_volume(1)
 
         self.clock = pygame.time.Clock()
 
