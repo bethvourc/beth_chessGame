@@ -100,7 +100,7 @@ class Main:
     def __init__(self) -> None:
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH,HEIGHT))
-        pygame.display.set_caption("Beth CHESS")
+        pygame.display.set_caption("Beth-CHESS")
         self.game = Game()
 
     def mainloop(self):
